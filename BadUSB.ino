@@ -4,6 +4,7 @@
 
 #include <SPI.h>
 #include <SD.h>
+#include <string.h>
 
 #define KEY_BREAK 0xD0
 #define KEY_NUMLOCK 0xDB
@@ -171,7 +172,7 @@ void cmdString (File dataFile) {
 void parseCmd(File dataFile) {
   while (true) {
     charBuff = dataFile.read();
-    if (charBuff == ' ' || charBuff == '\n' || cmd.length() > 15) {
+    if (charBuff == ' ' || charBuff == '\n' || charBuff == '\r'|| cmd.length() > 15) {
       breakChar = charBuff;
       break;
     }
@@ -515,6 +516,7 @@ int delivery (String fileName) {
         cmdPressKey(KEY_DOWN_ARROW);
       }
       else if (cmd == "LEFTARROW" || cmd == "LEFT") {
+        Serial.println("HERERRRR");
         cmdPressKey(KEY_LEFT_ARROW);
       }
       else if (cmd == "RIGHTARROW" || cmd == "RIGHT") {
